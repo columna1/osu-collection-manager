@@ -1,0 +1,10 @@
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\bin\Release\Collections manager.exe.config
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\bin\Release\Collections manager.exe
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\bin\Release\Collections manager.pdb
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\obj\Release\Collections_manager.Form1.resources
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\obj\Release\Collections_manager.Properties.Resources.resources
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\obj\Release\Collections manager.csproj.GenerateResource.Cache
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\obj\Release\Collections manager.exe
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\obj\Release\Collections manager.pdb
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\obj\Release\Collections manager.csprojResolveAssemblyReference.cache
+C:\Users\theco\Documents\Visual Studio 2015\Projects\Collections manager\Collections manager\obj\Release\Collections_manager.AboutBox1.resources

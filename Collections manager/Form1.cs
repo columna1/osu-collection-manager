@@ -378,6 +378,9 @@ namespace Collections_manager
 
         private void scoresdbToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            //NEEDS MOAR ERROR CHECKING SROTUIHOUYFHTOIU
+
             //reconstruct scores.db//
 
             //ask for confirmation
@@ -396,13 +399,18 @@ namespace Collections_manager
                     //Console.WriteLine(files[i].Substring(osuFolder.Length + 7,32));
                     //Console.WriteLine(OsuDB.Songs[files[i].Substring(osuFolder.Length + 7, 32)].songTitle);
                     string hash = files[i].Substring(osuFolder.Length + 7, 32);
+                    //Console.WriteLine("http://osu.ppy.sh/b/" + OsuDB.Songs[hash].beatmapID);
                     if (ScoreDB.Maps.ContainsKey(hash))
                     {
-                        ScoreDB.Maps[hash].replays.Add(ScoreDB.readReplay(files[i]));
+                        Replay rr = ScoreDB.readReplay(files[i]);
+                        if(rr.replayhash.Length >=1)
+                            ScoreDB.Maps[hash].replays.Add(rr);
                     }
                     else
                     {
-                        ScoreDB.Maps.Add(hash, new ScoreDB.Map(ScoreDB.readReplay(files[i])));
+                        Replay rr = ScoreDB.readReplay(files[i]);
+                        if (rr.replayhash.Length >= 1)
+                            ScoreDB.Maps.Add(hash, new ScoreDB.Map(rr));
                     }
                 }
                 Console.WriteLine(ScoreDB.Maps.Count);

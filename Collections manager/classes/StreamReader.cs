@@ -51,19 +51,28 @@ namespace Collections_manager.classes
 			byte[] nBytes = new byte[bytes.Count()];
 			for (int i=0; i<bytes.Count(); i++)
 			{
-				nBytes[i] = bytes[bytes.Count() - i];
+				nBytes[i] = bytes[bytes.Count() - i-1];
 			}
 			return nBytes;
 		}
 
-		public static long readLong()
-		{
-			byte[] data = getBytes(8); // Hmm.
-			//data = reverseByteOrder(data);
-			return data[0] + (data[1] << 8) + (data[2] << 16) + (data[3] << 24) + (data[4] << 32) + (data[5] << 40) + (data[6] << 48) + (data[7] << 56);
-		}
+        public static long readLong()
+        {
+            byte[] data = getBytes(8); // Hmm.
+            //data = reverseByteOrder(data);
+            long byte1 = (long)(data[0]);
+            long byte2 = (long)(data[1]) << 8;
+            long byte3 = (long)(data[2]) << 16;
+            long byte4 = (long)(data[3]) << 24;
+            long byte5 = (long)(data[4]) << 32;
+            long byte6 = (long)(data[5]) << 40;
+            long byte7 = (long)(data[6]) << 48;
+            long byte8 = (long)(data[7]) << 56;
+            long returnval = byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8;
+            return returnval;
+        }
 
-		public static string readString()
+        public static string readString()
 		{
 			if (readByte() == 11) {
 				byte[] buffer = getBytes(readULEB128());

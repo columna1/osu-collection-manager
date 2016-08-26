@@ -428,7 +428,7 @@ namespace Collections_manager
                     else
                         count++;
                 }
-                ScoreDB.writeScoresDB(osuFolder + "scores2.db");
+                ScoreDB.writeScoresDB(osuFolder + "scores.db");
                 //runWorker2();
                 //reconstruct scores.db
                 //find all the osr files in data/r

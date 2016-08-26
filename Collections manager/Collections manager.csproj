@@ -52,10 +52,13 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="classes\Replay.cs" />
     <Compile Include="classes\Collection.cs" />
     <Compile Include="classes\CollectionDB.cs" />
     <Compile Include="classes\DebugHelper.cs" />
     <Compile Include="classes\OsuDB.cs" />
+    <Compile Include="classes\ReplayMap.cs" />
+    <Compile Include="classes\ScoreDB.cs" />
     <Compile Include="classes\Song.cs" />
     <Compile Include="classes\StreamReader.cs" />
     <Compile Include="classes\StreamWriter.cs" />

@@ -26,15 +26,36 @@ namespace Collections_manager.classes
 			t[0] = input;
 			writeBytes(t);
 		}
-		//only need string and int for collection.db
-		public static void writeInt(int value)
+        public static void writeBool(bool value)
+        {
+            if (value)
+                writeByte(0x01);
+            else
+                writeByte(0x00);
+        }
+        //only need string and int for collection.db
+        public static void writeShort(short value)
+        {
+            byte[] intBytes = BitConverter.GetBytes(value);
+            if (!BitConverter.IsLittleEndian)
+                Array.Reverse(intBytes);
+            writeBytes(intBytes);
+        }
+        public static void writeInt(int value)
 		{
 			byte[] intBytes = BitConverter.GetBytes(value);
 			if (!BitConverter.IsLittleEndian)
 				Array.Reverse(intBytes);
 			writeBytes(intBytes);
 		}
-		public static void writeULEB128(long input)
+        public static void writeLong(long value)
+        {
+            byte[] intBytes = BitConverter.GetBytes(value);
+            if (!BitConverter.IsLittleEndian)
+                Array.Reverse(intBytes);
+            writeBytes(intBytes);
+        }
+        public static void writeULEB128(long input)
 		{
 			writeBytes(encodeULEB128(input));
 		}
@@ -55,9 +76,16 @@ namespace Collections_manager.classes
 		public static void writeString(string input)
 		{
 			//write 0x0b then ULEB128 as length then the string
-			writeByte(0x0b);
-			writeULEB128(input.Length);
-			writeBytes(Encoding.UTF8.GetBytes(input));
+            if (input.Length < 1)
+            {
+                writeByte(0x00);
+            }else
+            {
+                writeByte(0x0b);
+			    writeULEB128(input.Length);
+			    writeBytes(Encoding.UTF8.GetBytes(input));
+            }
+			
 		}
 		public static void flushFile(string filename)
 		{

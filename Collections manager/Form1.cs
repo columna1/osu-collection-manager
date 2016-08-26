@@ -218,7 +218,13 @@ namespace Collections_manager
 				backgroundWorker1.RunWorkerAsync();
 		}
 
-		private void browseButton_Click(object sender, EventArgs e)
+        private void runWorker2()
+        {
+            if (!backgroundWorker2.IsBusy)
+                backgroundWorker2.RunWorkerAsync();
+        }
+
+        private void browseButton_Click(object sender, EventArgs e)
 		{
 			if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
 			{
@@ -339,7 +345,21 @@ namespace Collections_manager
 			populateForm();
 		}
 
-		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string[] files = Directory.GetFiles(osuFolder + "data\\r", "*.osr");
+            for (int i = 0; i < files.Length; i++)
+            {
+                Console.WriteLine(files[i]);
+            }
+        }
+
+        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            statusLabel.Text = "Finished constructing Scores.db";
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			AboutBox1 box = new AboutBox1();
 			box.ShowDialog();
@@ -355,5 +375,65 @@ namespace Collections_manager
 			//open link eventually
 			MessageBox.Show("Not released yet!","Not yet!");
 		}
-	}
+
+        private void scoresdbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //reconstruct scores.db//
+
+            //ask for confirmation
+            if (true)
+            {
+
+                //if it exists make a backup in backup folder
+                string[] files = Directory.GetFiles(osuFolder + "data\\r", "*.osr");
+                //ScoreDB scores = new ScoreDB();
+                for (int i = 0; i < files.Length; i++)
+                {
+                    //Console.WriteLine(files[i]);
+                    //Console.WriteLine(files[i].Length);
+                    //Console.WriteLine(osuFolder.Length + 6);
+                    //Console.WriteLine(files[i].Length - 4 - osuFolder.Length + 6);
+                    //Console.WriteLine(files[i].Substring(osuFolder.Length + 7,32));
+                    //Console.WriteLine(OsuDB.Songs[files[i].Substring(osuFolder.Length + 7, 32)].songTitle);
+                    string hash = files[i].Substring(osuFolder.Length + 7, 32);
+                    if (ScoreDB.Maps.ContainsKey(hash))
+                    {
+                        ScoreDB.Maps[hash].replays.Add(ScoreDB.readReplay(files[i]));
+                    }
+                    else
+                    {
+                        ScoreDB.Maps.Add(hash, new ScoreDB.Map(ScoreDB.readReplay(files[i])));
+                    }
+                }
+                Console.WriteLine(ScoreDB.Maps.Count);
+                bool backup = true;
+                int count = 0;
+                while (backup)
+                {
+                    if (!Directory.Exists(osuFolder + "collection backups"))
+                        Directory.CreateDirectory(osuFolder + "collection backups");
+                    if (!File.Exists(osuFolder + "collection backups\\scores" + count + ".db"))
+                    {
+                        File.Copy(osuFolder + "scores.db", osuFolder + "collection backups\\scores" + count + ".db");
+                        backup = false;
+                    }
+                    else
+                        count++;
+                }
+                ScoreDB.writeScoresDB(osuFolder + "scores2.db");
+                //runWorker2();
+                //reconstruct scores.db
+                //find all the osr files in data/r
+                //for each replay file
+                //read the data needed for the scores.db file
+
+
+                //data structure:?
+                //list [maps]
+                //map is a list of replay objects
+                //replay object
+            }
+            //give completed confirmation
+        }
+    }
 }

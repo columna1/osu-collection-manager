@@ -347,16 +347,50 @@ namespace Collections_manager
 
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            string[] files = Directory.GetFiles(osuFolder + "data\\r", "*.osr");
-            for (int i = 0; i < files.Length; i++)
+            statusLabel.Text = "Reconstructing Scores.db From scratch, Please wait...";
+            if (true)
             {
-                Console.WriteLine(files[i]);
+
+                //if it exists make a backup in backup folder
+                string[] files = Directory.GetFiles(osuFolder + "data\\r", "*.osr");
+
+                for (int i = 0; i < files.Length; i++)
+                {
+                    string hash = files[i].Substring(osuFolder.Length + 7, 32);
+                    if (ScoreDB.Maps.ContainsKey(hash))
+                    {
+                        Replay rr = ScoreDB.readReplay(files[i]);
+                        if (rr.replayhash.Length >= 1)
+                            ScoreDB.Maps[hash].replays.Add(rr);
+                    }
+                    else
+                    {
+                        Replay rr = ScoreDB.readReplay(files[i]);
+                        if (rr.replayhash.Length >= 1)
+                            ScoreDB.Maps.Add(hash, new ScoreDB.Map(rr));
+                    }
+                }
+                bool backup = true;
+                int count = 0;
+                while (backup)
+                {
+                    if (!Directory.Exists(osuFolder + "collection backups"))
+                        Directory.CreateDirectory(osuFolder + "collection backups");
+                    if (!File.Exists(osuFolder + "collection backups\\scores" + count + ".db"))
+                    {
+                        File.Copy(osuFolder + "scores.db", osuFolder + "collection backups\\scores" + count + ".db");
+                        backup = false;
+                    }
+                    else
+                        count++;
+                }
+                ScoreDB.writeScoresDB(osuFolder + "scores.db");
             }
         }
 
         private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            statusLabel.Text = "Finished constructing Scores.db";
+            statusLabel.Text = "Finished constructing Scores.db!";
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -384,64 +418,17 @@ namespace Collections_manager
             //reconstruct scores.db//
 
             //ask for confirmation
-            if (true)
+            var confirmResult = MessageBox.Show("Are you sure you want to rebuild your Scores.db?",
+                                     "Confirm Rebuild?",
+                                     MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
             {
-
-                //if it exists make a backup in backup folder
-                string[] files = Directory.GetFiles(osuFolder + "data\\r", "*.osr");
-                //ScoreDB scores = new ScoreDB();
-                for (int i = 0; i < files.Length; i++)
-                {
-                    //Console.WriteLine(files[i]);
-                    //Console.WriteLine(files[i].Length);
-                    //Console.WriteLine(osuFolder.Length + 6);
-                    //Console.WriteLine(files[i].Length - 4 - osuFolder.Length + 6);
-                    //Console.WriteLine(files[i].Substring(osuFolder.Length + 7,32));
-                    //Console.WriteLine(OsuDB.Songs[files[i].Substring(osuFolder.Length + 7, 32)].songTitle);
-                    string hash = files[i].Substring(osuFolder.Length + 7, 32);
-                    //Console.WriteLine("http://osu.ppy.sh/b/" + OsuDB.Songs[hash].beatmapID);
-                    if (ScoreDB.Maps.ContainsKey(hash))
-                    {
-                        Replay rr = ScoreDB.readReplay(files[i]);
-                        if(rr.replayhash.Length >=1)
-                            ScoreDB.Maps[hash].replays.Add(rr);
-                    }
-                    else
-                    {
-                        Replay rr = ScoreDB.readReplay(files[i]);
-                        if (rr.replayhash.Length >= 1)
-                            ScoreDB.Maps.Add(hash, new ScoreDB.Map(rr));
-                    }
-                }
-                Console.WriteLine(ScoreDB.Maps.Count);
-                bool backup = true;
-                int count = 0;
-                while (backup)
-                {
-                    if (!Directory.Exists(osuFolder + "collection backups"))
-                        Directory.CreateDirectory(osuFolder + "collection backups");
-                    if (!File.Exists(osuFolder + "collection backups\\scores" + count + ".db"))
-                    {
-                        File.Copy(osuFolder + "scores.db", osuFolder + "collection backups\\scores" + count + ".db");
-                        backup = false;
-                    }
-                    else
-                        count++;
-                }
-                ScoreDB.writeScoresDB(osuFolder + "scores.db");
-                //runWorker2();
-                //reconstruct scores.db
-                //find all the osr files in data/r
-                //for each replay file
-                //read the data needed for the scores.db file
-
-
-                //data structure:?
-                //list [maps]
-                //map is a list of replay objects
-                //replay object
+                runWorker2();
             }
-            //give completed confirmation
+            else
+            {
+                statusLabel.Text = "Scores.db reconstruction aborted.";
+            }
         }
     }
 }

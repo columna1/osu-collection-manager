@@ -35,33 +35,11 @@ namespace Collections_manager.classes
             {
                 StreamWriter.writeString(entry.Key);
                 StreamWriter.writeInt(entry.Value.replays.Count);
-                //if (entry.Value.replays.Count >= 10)
-                    //Console.WriteLine(entry.Value.replays.Count);
-                if (entry.Value.replays.Count == 26) {
-                    Console.WriteLine("Found map with 26 scores");
-                    Console.WriteLine(entry.Key);
-                    Console.WriteLine("http://osu.ppy.sh/b/" + OsuDB.Songs[entry.Key].beatmapID);
-                }
+
+                entry.Value.replays.Sort((x, y) => y.score.CompareTo(x.score));//sort the replays by highest score
                 
                 for(int i = 0;i < entry.Value.replays.Count; i++)
                 {
-                    if (entry.Value.replays.Count == 26)
-                    {
-                        //Console.WriteLine(i+1 + ":");
-                        //Console.WriteLine(entry.Value.replays[i].replayhash);
-                        //Console.WriteLine(entry.Value.replays[i].replayhash.Length);
-                    }
-
-                    if (entry.Value.replays[i].replayhash.Length <1)
-                    {
-                        errs++;
-                        Console.WriteLine("Found another one this makes: " + errs);
-                    }
-                    if (entry.Value.replays[i].hash.Length < 1)
-                    {
-                        errs++;
-                        Console.WriteLine("Found another one this makes: " + errs);
-                    }
                     StreamWriter.writeByte(entry.Value.replays[i].mode);
                     StreamWriter.writeInt(   entry.Value.replays[i].version     );
                     StreamWriter.writeString(entry.Value.replays[i].hash        );

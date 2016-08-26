@@ -54,14 +54,14 @@
             this.forumPostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reconstructToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scoresdbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forumPostToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reconstructToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.scoresdbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -339,6 +339,29 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // extrasToolStripMenuItem
+            // 
+            this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reconstructToolStripMenuItem});
+            this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(49, 18);
+            this.extrasToolStripMenuItem.Text = "Extras";
+            // 
+            // reconstructToolStripMenuItem
+            // 
+            this.reconstructToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scoresdbToolStripMenuItem});
+            this.reconstructToolStripMenuItem.Name = "reconstructToolStripMenuItem";
+            this.reconstructToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.reconstructToolStripMenuItem.Text = "Reconstruct";
+            // 
+            // scoresdbToolStripMenuItem
+            // 
+            this.scoresdbToolStripMenuItem.Name = "scoresdbToolStripMenuItem";
+            this.scoresdbToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.scoresdbToolStripMenuItem.Text = "Scores.db";
+            this.scoresdbToolStripMenuItem.Click += new System.EventHandler(this.scoresdbToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -351,7 +374,7 @@
             // forumPostToolStripMenuItem1
             // 
             this.forumPostToolStripMenuItem1.Name = "forumPostToolStripMenuItem1";
-            this.forumPostToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.forumPostToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
             this.forumPostToolStripMenuItem1.Text = "Forum post";
             this.forumPostToolStripMenuItem1.Click += new System.EventHandler(this.forumPostToolStripMenuItem1_Click);
             // 
@@ -359,7 +382,7 @@
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
             this.aboutToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -375,32 +398,11 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // extrasToolStripMenuItem
-            // 
-            this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reconstructToolStripMenuItem});
-            this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
-            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(49, 18);
-            this.extrasToolStripMenuItem.Text = "Extras";
-            // 
-            // reconstructToolStripMenuItem
-            // 
-            this.reconstructToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scoresdbToolStripMenuItem});
-            this.reconstructToolStripMenuItem.Name = "reconstructToolStripMenuItem";
-            this.reconstructToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.reconstructToolStripMenuItem.Text = "Reconstruct";
-            // 
-            // scoresdbToolStripMenuItem
-            // 
-            this.scoresdbToolStripMenuItem.Name = "scoresdbToolStripMenuItem";
-            this.scoresdbToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.scoresdbToolStripMenuItem.Text = "Scores.db";
-            this.scoresdbToolStripMenuItem.Click += new System.EventHandler(this.scoresdbToolStripMenuItem_Click);
-            // 
             // backgroundWorker2
             // 
             this.backgroundWorker2.WorkerSupportsCancellation = true;
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
             // Form1
             // 
